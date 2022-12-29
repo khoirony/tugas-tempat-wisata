@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Tempat;
 
 
 class LoginController extends Controller
 {
     public function index(){
+        $tempats = Tempat::all();
+
         return view('auth.login', [
-            'title' => 'Login Pengaduan Mahasiswa'
+            'tempats' => $tempats,
+            'title' => 'Login Traveler'
         ]);
     }
 

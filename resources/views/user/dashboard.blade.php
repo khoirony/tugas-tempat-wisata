@@ -5,23 +5,7 @@
     <div class="flex flex-nowrap">
         @include('components.sidebar')
         <div class="absolute flex gap-10 z-50 right-10 top-10">
-            <div class="bg-white shadow-xl rounded-lg px-10 py-7 w-72">
-                <p class="font-extrabold text-2xl text-red-900">Jumlah Wisata</p>
-                <br>
-                <p class="text-right text-sm font-medium"><span class="font-bold text-3xl text-blue-800">{{ $jmltempat }} </span> Tempat</p>
-            </div>
-
-            <div class="bg-white shadow-xl rounded-lg px-10 py-7 w-72">
-                <p class="font-extrabold text-2xl text-red-900">Jumlah User</p>
-                <br>
-                <p class="text-right text-sm font-medium"><span class="font-bold text-3xl text-blue-800">{{ $jmluser }} </span> User</p>
-            </div>
-
-            <div class="bg-white shadow-xl rounded-lg px-10 py-7 w-72">
-                <p class="font-extrabold text-2xl text-red-900">Jml Komentar</p>
-                <br>
-                <p class="text-right text-sm font-medium"><span class="font-bold text-3xl text-blue-800">{{ $jmlkomentar }} </span> Komentar</p>
-            </div>
+            <!-- Content -->
         </div>
     </div>
     <!-- Map -->

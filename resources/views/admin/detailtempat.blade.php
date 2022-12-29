@@ -5,7 +5,7 @@
     @include('components.sidebar')
 
 	<!-- Form Tambah Tempat -->
-    <div class="absolute bg-white rounded-lg shadow-xl py-5 px-5 z-50 left-[260px] bottom-20 w-96 h-5/6">
+    <div class="absolute bg-white rounded-lg shadow-xl py-5 px-5 z-50 left-[260px] top-9 w-96 h-5/6">
         @if(session()->has('success'))
             <div id="alert-4" class="flex p-4 mb-4 bg-yellow-100 rounded-lg" role="alert">
             <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5 text-yellow-700" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
@@ -19,23 +19,54 @@
             </button>
             </div>
         @endif
-        <h3 class="text-xl font-bold text-center">{{ $tempat->nama_tempat }}</h3>
+        <div class="flex justify-between">
+            <div><a href="{{ url()->previous() }}"><i class="fa-solid fa-angles-left"></i></a></div>
+            <h3 class="text-xl font-bold text-center">{{ $tempat->nama_tempat }}</h3>
+            <div></div>
+        </div>
         <br><br>
         @if(session()->has('success'))
-        <div class="overflow-scroll @if(session()->has('success')) h-[70%] @endif" id="hilanginscroll">
+        <div class="overflow-scroll h-[70%]" id="hilanginscroll">
         @else
         <div class="overflow-scroll h-5/6" id="hilanginscroll">
         @endif
             <div class="text-justify h-full">
-                <img src="/tempat/museum-baduga.jpeg" alt="foto-tempat" class="w-full"> <br>
+                
+                <!-- Slider main container -->
+                <div class="swiper h-[200px]">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        @foreach($tempat->fototempat as $foto)
+                        <div class="swiper-slide">
+                            <img src="{{$foto->nama_foto}}" alt="{{ $tempat->nama_tempat }}" class="object-cover w-full">
+                        </div>
+                        @endforeach
+                    </div>
+                    <!-- If we need pagination -->
+                    <div class="swiper-pagination"></div>
+
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+                
+                <br><br>
                 {{ $tempat->deskripsi }} <br><br>
                 <p><span class="font-bold">Alamat:</span> {{ $tempat->alamat }}</p>
                 <p><span class="font-bold">Jam Buka:</span> {{ $tempat->jam_buka }} - {{ $tempat->jam_tutup }}</p> 
                 <p><span class="font-bold">Hari Buka:</span> {{ $tempat->hari_buka }} - {{ $tempat->hari_tutup }}</p>
                 <p><span class="font-bold">Harga Tiket:</span> Rp {{ $tempat->harga_tiket }},-</p>
                 <div class="flex justify-center gap-5 mt-5">
-                    <a href="/edittempat/{{ $tempat->id }}" class="shadow bg-blue-600 text-white rounded py-1 px-5 font-medium">Edit</a>
-                    <a href="/hapustempat/{{ $tempat->id }}" class="shadow bg-red-600 text-white rounded py-1 px-5 font-medium">Hapus</a>
+                    @if(Auth::user()->role == 1)
+                    <a href="/edittempat/{{ $tempat->id }}" class="shadow w-[30%] bg-blue-600 text-white text-center rounded py-1 px-5 font-medium">Edit</a>
+                    <a href="/hapustempat/{{ $tempat->id }}" class="shadow w-[30%] bg-red-600 text-white text-center rounded py-1 px-5 font-medium">Hapus</a>
+                    @else
+                        <button type="button" class="text-white shadow-lg bg-red-600 px-4 py-1 rounded font-medium" onclick="getlokasi('{{ $tempat->longitude }}', '{{ $tempat->latitude }}');">
+                            Cari Rute
+                        </button>
+                    @endif
+                    @livewire('form.komentar', ['id_tempat' => $tempat->id ])
                 </div>
             </div>
         </div>
@@ -45,6 +76,29 @@
     <div id="map" class="z-10" style="height:100vh;"></div>
 </div>
 
+    <script>
+        const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+        },
+
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+
+        // And if we need scrollbar
+        scrollbar: {
+            el: '.swiper-scrollbar',
+        },
+        });
+    </script>
 
     <!-- Custom Map -->
     <script>

@@ -19,25 +19,36 @@
             </button>
             </div>
         @endif
-        <h3 class="text-xl font-bold text-center">List Tempat Wisata</h3>
+        <div class="flex justify-between">
+            <div><a href="{{ url()->previous() }}"><i class="fa-solid fa-angles-left"></i></a></div>
+            <h3 class="text-xl font-bold text-center">Detail User</h3>
+            <div></div>
+        </div>
         <br><br>
         @if(session()->has('success'))
-        <div class="overflow-scroll h-[70%]" id="hilanginscroll">
+        <div class="overflow-scroll @if(session()->has('success')) h-[70%] @endif" id="hilanginscroll">
         @else
         <div class="overflow-scroll h-5/6" id="hilanginscroll">
         @endif
-            @foreach($tempats as $tempat)
-            <div class="shadow-lg flex justify-between bg-red-300 pl-5 pr-2 py-2 rounded mb-5 w-full">
-                @if(Auth::user()->role == 1)
-                <a href="/detailtempat/{{ $tempat->id }}" class="w-full py-1">{{ $tempat->nama_tempat }}</a>
-                @else
-                <a href="/user/detailtempat/{{ $tempat->id }}" class="w-full py-1">{{ $tempat->nama_tempat }}</a>
+            <div class="text-justify h-full">
+                <div class="flex justify-center">
+                    <img src="/profpic/rony.jpg" alt="foto-user" class="w-1/3 text-center rounded-full">
+                </div><br>
+                <p class="text-center">
+                    {{ $user->bio }}
+                </p><br>
+                <p><span class="font-bold">Nama:</span> {{ $user->name }}</p>
+                <p><span class="font-bold">Email:</span> {{ $user->email }}</p>
+                <p><span class="font-bold">Jenis Kelamin:</span> {{ $user->jk }}</p>
+                <p><span class="font-bold">TTL:</span> {{ $user->tempat_lahir }}, {{ $user->tanggal_lahir}}</p>
+                <p><span class="font-bold">Alamat:</span> {{ $user->alamat }}</p>
+                <br>
+                @if(Auth::user()->role != 1)
+                <div class="text-center">
+                    <a href="/user/editprofile" class="bg-blue-600 px-5 py-1 rounded text-white font-bold">Edit</a>
+                </div>
                 @endif
-                <button type="button" class="text-black bg-white px-4 py-1 rounded" onclick="getlokasi('{{ $tempat->longitude }}', '{{ $tempat->latitude }}');">
-                    Rute
-                </button>
             </div>
-            @endforeach
         </div>
     </div>
 
@@ -64,10 +75,8 @@
         // looping titik tempat
         @foreach ($tempats as $tempat)
             var marker{{ $tempat->id }} = new L.Marker([{{ $tempat->latitude}}, {{ $tempat->longitude }}]).addTo(map);
-            @foreach ($tempat->fototempat as $foto)
-                @php $pict = $foto->nama_foto @endphp;
-            @endforeach
-            marker{{ $tempat->id }}.bindPopup('<div class="flex justify-center"><img src="{{$pict}}" class="rounded-lg"></div> ' + '<p class="font-bold text-center my-0">{{ $tempat->nama_tempat }}</p> ' + ' {{ $tempat->alamat }} <br><br> ' + ' <div class="text-center mb-5"> <a href="/detailtempat/{{$tempat->id}}" class="bg-blue-600 px-4 py-3 rounded-lg text-center"><span class="text-white">Lihat Detail</span></a> <button type="button" class="text-white bg-red-600 px-4 py-[10px] rounded-lg" onclick="getlokasi(\'{{ $tempat->longitude }}\', \'{{ $tempat->latitude }}\');">Lihat Rute</button> </div>');
+            
+            marker{{ $tempat->id }}.bindPopup('Nama: {{ $tempat->nama_tempat }} <br> Alamat: {{ $tempat->alamat }}');
         @endforeach
 
         let lng;

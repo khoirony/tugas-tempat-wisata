@@ -10,4 +10,8 @@ class FotoTempat extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
+    public function tempat() 
+	{
+		return $this->belongsTo('App\Models\Tempat', 'id');
+	}
 }

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('id_tempat');
             $table->integer('id_user');
             $table->text('isi_komentar');
-            $table->float('rating');
+            $table->float('rating')->nullable();
             $table->timestamps();
         });
     }

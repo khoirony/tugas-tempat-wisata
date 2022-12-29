@@ -10,4 +10,13 @@ class Tempat extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
+    public function komentar() 
+	{
+		return $this->hasMany('App\Models\Komentar', 'id_tempat');
+	}
+
+    public function fototempat() 
+	{
+		return $this->hasMany('App\Models\FotoTempat', 'id_tempat');
+	}
 }

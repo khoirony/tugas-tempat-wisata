@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GuestController;
 
 
 /*
@@ -18,25 +19,40 @@ use App\Http\Controllers\UserController;
 |
 */
 // Homepage
-Route::view('/', 'welcome')->name('home');
+Route::get('/', [GuestController::class, 'index']);
 
 // Authentication
-Route::get('/login', [LoginController::class, 'index'])->middleware('guest');
-Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('/login', [LoginController::class, 'index'])->middleware(["noAuth"]);
+Route::post('/login', [LoginController::class, 'authenticate'])->middleware(["noAuth"]);
 Route::get('/logout', [LoginController::class, 'logout']);
 
-Route::get('/register', [RegisterController::class, 'index']);
-Route::post('/register', [RegisterController::class, 'store']);
+Route::get('/register', [RegisterController::class, 'index'])->middleware(["noAuth"]);
+Route::post('/register', [RegisterController::class, 'store'])->middleware(["noAuth"]);
 
 // Admin Route
-Route::get('/admin', [AdminController::class, 'index']);
-Route::get('/tambahtempat', [AdminController::class, 'tambahTempat']);
-Route::post('/tambahtempat', [AdminController::class, 'storeTempat']);
-Route::get('/listtempat', [AdminController::class, 'listTempat']);
-Route::get('/detailtempat/{id}', [AdminController::class, 'detailTempat']);
-Route::get('/edittempat/{id}', [AdminController::class, 'editTempat']);
-Route::post('/edittempat/{id}', [AdminController::class, 'updateTempat']);
-Route::get('/hapustempat/{id}', [AdminController::class, 'hapusTempat']);
+Route::get('/admin', [AdminController::class, 'index'])->middleware(["withAuthAdmin"]);
+
+Route::get('/listtempat', [AdminController::class, 'listTempat'])->middleware(["withAuthAdmin"]);
+Route::get('/detailtempat/{id}', [AdminController::class, 'detailTempat'])->middleware(["withAuthAdmin"]);
+Route::get('/tambahtempat', [AdminController::class, 'tambahTempat'])->middleware(["withAuthAdmin"]);
+Route::post('/tambahtempat', [AdminController::class, 'storeTempat'])->middleware(["withAuthAdmin"]);
+Route::get('/edittempat/{id}', [AdminController::class, 'editTempat'])->middleware(["withAuthAdmin"]);
+Route::post('/edittempat/{id}', [AdminController::class, 'updateTempat'])->middleware(["withAuthAdmin"]);
+Route::get('/hapustempat/{id}', [AdminController::class, 'hapusTempat'])->middleware(["withAuthAdmin"]);
+
+Route::get('/listuser', [AdminController::class, 'listUser'])->middleware(["withAuthAdmin"]);
+Route::get('/detailuser/{id}', [AdminController::class, 'detailUser'])->middleware(["withAuthAdmin"]);
+Route::get('/edituser/{id}', [AdminController::class, 'editUser'])->middleware(["withAuthAdmin"]);
+Route::post('/edituser/{id}', [AdminController::class, 'updateUser'])->middleware(["withAuthAdmin"]);
+Route::get('/hapususer/{id}', [AdminController::class, 'hapusUser'])->middleware(["withAuthAdmin"]);
+
+Route::get('/caritempat', [AdminController::class, 'cariTempat'])->middleware(["withAuthAdmin"]);
+Route::post('/caritempat', [AdminController::class, 'cariTempat'])->middleware(["withAuthAdmin"]);
 
 // User Route
-Route::get('/user', [UserController::class, 'index']);
+Route::get('/user', [UserController::class, 'index'])->middleware(["withAuthUser"]);
+Route::get('/user/listtempat', [UserController::class, 'listTempat'])->middleware(["withAuthUser"]);
+Route::get('/user/detailtempat/{id}', [UserController::class, 'detailTempat'])->middleware(["withAuthUser"]);
+Route::get('/user/profile', [UserController::class, 'profile'])->middleware(["withAuthUser"]);
+Route::get('/user/editprofile', [UserController::class, 'editProfile'])->middleware(["withAuthUser"]);
+Route::post('/user/editprofile', [UserController::class, 'updateProfile'])->middleware(["withAuthUser"]);

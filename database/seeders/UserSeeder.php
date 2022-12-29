@@ -19,14 +19,20 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
-            'password' => '12345678',
+            'password' => bcrypt(12345678),
             'role' => 1
         ]);
+
         User::create([
-            'name' => 'Rony',
-            'email' => 'rony@gmail.com',
-            'password' => '12345678',
-            'role' => 2
+            'name' => 'KhoironyArief',
+            'email' => 'khoirony@gmail.com',
+            'password' => bcrypt(12345678),
+            'role' => 2,
+            'jk' => 'Laki-Laki',
+            'tempat_lahir' => 'Lamongan',
+            'tanggal_lahir' => '01-01-1999',
+            'alamat' => 'Jl. Asia Afrika, Balonggede, Kec. Regol, Kota Bandung, Jawa Barat 40251',
+            'bio' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
         ]);
     }
 }

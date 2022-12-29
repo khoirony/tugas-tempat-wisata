@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Tempat;
 
 class RegisterController extends Controller
 {
     public function index(){
+        $tempats = Tempat::all();
+
         return view('auth.register', [
+            'tempats' => $tempats,
             'title' => 'Register',
-            'active' => 'register'
         ]);
     }
 
