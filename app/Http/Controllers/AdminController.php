@@ -83,7 +83,7 @@ class AdminController extends Controller
             'jam_buka' => 'nullable',
             'jam_tutup' => 'nullable',
             'harga_tiket' => 'nullable',
-            'foto_tempat' => 'nullable|image'
+            'foto_tempat' => 'nullable'
         ]);
 
         Tempat::query()->create([
@@ -100,22 +100,22 @@ class AdminController extends Controller
         ]);
 
         if($request->file("foto_tempat") != null){
-            // get input file
-            $file = $request->file("foto_tempat");
-            // hash file name
-            $filename = $file->hashName();
-            // move file to folder tempat
-            $file->move("tempat", $filename);
-            // initiate folder name + filename to path
-            $path = "/tempat/" . $filename;
-            // get id tempat
-            $id_tempat = Tempat::orderBy('id', 'desc')->first();
-            
-            // insert foto
-            FotoTempat::query()->create([
-                'id_tempat' => $id_tempat->id,
-                'nama_foto' => $path
-            ]);
+            foreach($request->file("foto_tempat") as $foto){
+                // dd($foto->hashname);
+                $filename = $foto->hashName();
+                // move file to folder tempat
+                $foto->move("tempat", $filename);
+                // initiate folder name + filename to path
+                $path = "/tempat/" . $filename;
+                // get id tempat
+                $id_tempat = Tempat::orderBy('id', 'desc')->first();
+                
+                // insert foto
+                FotoTempat::query()->create([
+                    'id_tempat' => $id_tempat->id,
+                    'nama_foto' => $path
+                ]);
+            }
         }
 
         return redirect('/listtempat')->with('success', 'Tempat baru ditambahkan!');
@@ -263,5 +263,11 @@ class AdminController extends Controller
     {
         $user = User::where('id', $id)->delete();
         return redirect('/listuser')->with('success', 'User berhasil dihapus');
+    }
+
+    public function hapusFoto($id)
+    {
+        $foto = FotoTempat::where('id', $id)->delete();
+        return back()->with('success', 'Foto berhasil dihapus');
     }
 }

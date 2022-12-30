@@ -46,6 +46,8 @@ Route::get('/edituser/{id}', [AdminController::class, 'editUser'])->middleware([
 Route::post('/edituser/{id}', [AdminController::class, 'updateUser'])->middleware(["withAuthAdmin"]);
 Route::get('/hapususer/{id}', [AdminController::class, 'hapusUser'])->middleware(["withAuthAdmin"]);
 
+Route::get('/hapusfoto/{id}', [AdminController::class, 'hapusFoto'])->middleware(["withAuthAdmin"]);
+
 Route::get('/caritempat', [AdminController::class, 'cariTempat'])->middleware(["withAuthAdmin"]);
 Route::post('/caritempat', [AdminController::class, 'cariTempat'])->middleware(["withAuthAdmin"]);
 

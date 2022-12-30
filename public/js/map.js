@@ -45,8 +45,8 @@ function addMarkerUser(id, markerLat, markerLng, markerNama, markerAlamat, marke
     + '<p class="font-bold text-center my-0">'+markerNama+'</p> ' 
     + markerAlamat +' <br><br>'
     + ' <div class="text-center mb-5"> '
-    + ' <a href="/user/detailtempat/'+id+'" class="bg-blue-600 px-4 py-3 rounded-lg text-center">@endif<span class="text-white">Lihat Detail</span></a> '
-    + ' <button type="button" class="text-white bg-red-600 px-4 py-[10px] rounded-lg" onclick="getlokasi(\''+markerLng+'\', \''+markerLat+'\');">Lihat Rute</button>'
+    + ' <a href="/user/detailtempat/'+id+'"><span class="text-white bg-blue-600 px-4 py-2 rounded-lg text-center">Lihat Detail</span></a> '
+    + ' <button type="button" onclick="getlokasi(\''+markerLng+'\', \''+markerLat+'\');"><span class="text-white bg-red-600 px-4 py-2 rounded-lg">Lihat Rute</span></button>'
     + ' </div>');
 
     return marker;
@@ -63,8 +63,8 @@ function addMarkerAdmin(id, markerLat, markerLng, markerNama, markerAlamat, mark
     + '<p class="font-bold text-center my-0">'+markerNama+'</p> ' 
     + markerAlamat +' <br><br>'
     + ' <div class="text-center mb-5"> '
-    + ' <a href="/detailtempat/'+id+'" class="bg-blue-600 px-4 py-2 rounded-lg text-center"><span class="text-white">Lihat Detail</span></a> '
-    + ' <button type="button" class="text-white bg-red-600 px-4 py-3 rounded-lg" onclick="getlokasi(\''+markerLng+'\', \''+markerLat+'\');">Lihat Rute</button>'
+    + ' <a href="/detailtempat/'+id+'"><span class="text-white bg-blue-600 px-4 py-2 rounded-lg text-center">Lihat Detail</span></a> '
+    + ' <button type="button" onclick="getlokasi(\''+markerLng+'\', \''+markerLat+'\');"><span class="text-white bg-red-600 px-4 py-2 rounded-lg">Lihat Rute</span></button>'
     + ' </div>');
 
     return marker;

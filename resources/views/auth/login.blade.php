@@ -4,7 +4,7 @@
 
     <div class="relative z-10 top-full">
         @include('components.navbar')
-        <div class="absolute z-50 left-[35%] flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div class="absolute z-50 lg:left-[35%] left-3 lg:top-0 top-28 flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             @if(session()->has('success'))
                 <div id="alert-4" class="flex p-4 mb-2 mt-7 bg-yellow-100 rounded-lg" role="alert">
                     <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5 text-yellow-700" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>

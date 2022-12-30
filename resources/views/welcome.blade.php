@@ -3,10 +3,9 @@
 @section('content')
     <div class="relative z-10 top-full">
         @include('components.navbar')
-        <div class="absolute z-50 top-1/2 left-[28%]">
+        <div class="absolute z-50 top-1/2 lg:left-[28%] left-12">
             <span class="strok text-6xl text-white font-black drop-shadow-2xl outline-4 mr-3">SELAMAT</span> 
             <span class="text-6xl text-red-600 font-black drop-shadow-2xl outline-4">DATANG</span>
-
         </div>
         <!-- Map -->
         <div id="map" class="z-10" style="height:100vh;"></div>

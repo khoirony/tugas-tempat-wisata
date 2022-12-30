@@ -5,20 +5,20 @@
     <div class="flex flex-nowrap">
         @include('components.sidebar')
         
-        <div class="absolute flex gap-5 z-50 left-[260px] top-10 w-[55%]">
-            <div class="bg-white shadow-xl rounded-lg px-5 py-7 w-72">
+        <div class="absolute flex lg:flex-row flex-col gap-5 z-50 lg:left-[260px] left-5 top-10 lg:w-[55%] w-[90%]">
+            <div class="bg-white shadow-xl rounded-lg px-5 py-7 lg:w-72 w-full">
                 <p class="font-extrabold text-2xl text-red-900">Jumlah Wisata</p>
                 <br>
                 <p class="text-right text-sm font-medium"><span class="font-bold text-3xl text-blue-800">{{ $jmltempat }} </span> Tempat</p>
             </div>
 
-            <div class="bg-white shadow-xl rounded-lg px-5 py-7 w-72">
+            <div class="bg-white shadow-xl rounded-lg px-5 py-7 lg:w-72 w-full">
                 <p class="font-extrabold text-2xl text-red-900">Jumlah User</p>
                 <br>
                 <p class="text-right text-sm font-medium"><span class="font-bold text-3xl text-blue-800">{{ $jmluser }} </span> User</p>
             </div>
 
-            <div class="bg-white shadow-xl rounded-lg px-5 py-7 w-72">
+            <div class="bg-white shadow-xl rounded-lg px-5 py-7 lg:w-72 w-full">
                 <p class="font-extrabold text-2xl text-red-900">Jml Komentar</p>
                 <br>
                 <p class="text-right text-sm font-medium"><span class="font-bold text-3xl text-blue-800">{{ $jmlkomentar }} </span> Komentar</p>

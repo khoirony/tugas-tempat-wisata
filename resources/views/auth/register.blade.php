@@ -4,7 +4,7 @@
 
     <div class="relative z-10 top-full">
         @include('components.navbar')
-        <div class="absolute z-50 top-10 left-[35%] flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div class="absolute z-50 lg:left-[35%] left-3 lg:top-0 top-28 flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <div class="w-full bg-white rounded-lg shadow-lg md:mt-0 sm:max-w-md xl:p-0">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">

@@ -4,9 +4,9 @@
 <div class="relative z-10 top-full">
     <div class="flex flex-nowrap">
         @include('components.sidebar')
-        <div class="absolute flex gap-10 z-50 right-10 top-10">
+        <div class="absolute flex gap-10 z-50 lg:left-72 left-5 top-10">
             <!-- Content -->
-            <div class="shadow-xl bg-white rounded-lg px-10 py-5">
+            <div class="shadow-xl bg-white rounded-lg lg:w-96 w-[95%] px-10 py-5">
                 <h3 class="font-bold text-xl text-center">Cari Tempat</h3><br>
                     
                 <form action="" method="post">
@@ -57,7 +57,11 @@
             @endforeach
 
             // add marker to map
-            addMarkerAdmin('{{ $tempat->id }}', '{{ $tempat->latitude }}', '{{ $tempat->longitude }}', '{{ $tempat->nama_tempat }}', '{{ $tempat->alamat }}', markerFoto);
+            @if(Auth::user()->role == 1)
+                addMarkerAdmin('{{ $tempat->id }}', '{{ $tempat->latitude }}', '{{ $tempat->longitude }}', '{{ $tempat->nama_tempat }}', '{{ $tempat->alamat }}', markerFoto);
+            @else
+                addMarkerUser('{{ $tempat->id }}', '{{ $tempat->latitude }}', '{{ $tempat->longitude }}', '{{ $tempat->nama_tempat }}', '{{ $tempat->alamat }}', markerFoto);
+            @endif
         @endforeach
     </script>
 @endsection

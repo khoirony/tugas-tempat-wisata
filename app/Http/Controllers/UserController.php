@@ -11,8 +11,10 @@ class UserController extends Controller
 {
     public function index()
     {
+        $tempats = Tempat::all();
         return view('user.dashboard',[
             'title' => 'Dashboard User',
+            'tempats' => $tempats
         ]);
     }
 

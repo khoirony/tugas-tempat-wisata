@@ -1,8 +1,13 @@
 <div>
     <button type="button" wire:click="openDiv" class="shadow-lg bg-green-600 text-white rounded py-1 px-3 font-medium">Komentar</button>
         @if ($showDiv)
-        <div class="absolute shadow-xl bg-white rounded-lg w-full px-10 py-5 bottom-0 left-[400px]">
-            <h3 class="font-bold text-xl text-center">Komentar</h3><br>
+        <div class="absolute shadow-xl bg-white rounded-lg lg:w-full w-[95%] px-10 py-5 bottom-0 lg:left-[400px] left-0">
+            <div class="flex justify-between">
+                <div><button type="button" wire:click="openDiv" class="font-medium"><i class="fa-solid fa-angles-left"></i></button></div>
+                <h3 class="font-bold text-xl text-center">Komentar</h3>
+                <div class="px-3"></div>
+            </div>
+            <br>
             
             <div class="overflow-scroll h-[200px]" id="hilanginscroll">
                 @foreach($komen as $komentar)
