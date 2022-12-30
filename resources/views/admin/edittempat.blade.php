@@ -11,7 +11,7 @@
                 <div class="flex justify-between">
                     <div><a href="{{ url()->previous() }}"><i class="fa-solid fa-angles-left"></i></a></div>
                     <h3 class="text-xl font-bold text-center">Edit Tempat Wisata</h3>
-                    <div></div>
+                    <div><button x-on:click="card = ! card" type="button"><i class="fa-solid fa-xmark"></i><button></div>
                 </div>
                 <br><br>
                 <div class="overflow-scroll lg:h-5/6 h-5/6" id="hilanginscroll">
@@ -40,14 +40,40 @@
                             @error('alamat') {{ $message }} @enderror
                         </div>
                         <div class="flex mb-3">
-                            <div class="mr-3">
+                            <div class="w-[49%] mr-3">
                                 <label for="hari_buka" class="block mb-2 text-sm font-medium text-gray-900">Hari Buka</label>
-                                <input type="text" id="hari_buka" name="hari_buka" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{$tempat->hari_buka}}" required>
+                                <select name="hari_buka" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                    @if($tempat->hari_buka == null)
+                                        <option value="">--Pilih--</option>
+                                    @else
+                                        <option value="{{$tempat->hari_buka}}">{{$tempat->hari_buka}}</option>
+                                    @endif
+                                    <option value="Senin">Senin</option>
+                                    <option value="Selasa">Selasa</option>
+                                    <option value="Rabu">Rabu</option>
+                                    <option value="Kamis">Kamis</option>
+                                    <option value="Jum'at">Jum'at</option>
+                                    <option value="Sabtu">Sabtu</option>
+                                    <option value="Minggu">Minggu</option>
+                                </select>
                                 @error('hari_buka') {{ $message }} @enderror
                             </div>
-                            <div>
+                            <div class="w-[49%]">
                                 <label for="hari_tutup" class="block mb-2 text-sm font-medium text-gray-900">Hari Tutup</label>
-                                <input type="text" id="hari_tutup" name="hari_tutup" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{$tempat->hari_tutup}}" required>
+                                <select name="hari_tutup" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                    @if($tempat->hari_tutup == null)
+                                        <option value=" ">--Pilih--</option>
+                                    @else
+                                        <option value="{{$tempat->hari_tutup}}">{{$tempat->hari_tutup}}</option>
+                                    @endif
+                                    <option value="Senin">Senin</option>
+                                    <option value="Selasa">Selasa</option>
+                                    <option value="Rabu">Rabu</option>
+                                    <option value="Kamis">Kamis</option>
+                                    <option value="Jum'at">Jum'at</option>
+                                    <option value="Sabtu">Sabtu</option>
+                                    <option value="Minggu">Minggu</option>
+                                </select>
                                 @error('hari_tutup') {{ $message }} @enderror
                             </div>
                         </div>

@@ -24,7 +24,7 @@
                 <div class="flex justify-between">
                     <div><button type="button" x-on:click="card = ! card"><i class="fa-solid fa-angles-left"></i></a></div>
                     <h3 class="text-xl font-bold text-center">List User</h3>
-                    <div></div>
+                    <div><button x-on:click="card = ! card" type="button"><i class="fa-solid fa-xmark"></i><button></div>
                 </div>
                 <br><br>
 

@@ -40,15 +40,22 @@
                             <div class="swiper-wrapper">
                                 <!-- Slides -->
                                 @foreach($tempat->fototempat as $foto)
-                                <div class="swiper-slide relative">
-                                    @if(Auth::user()->role == 1)
-                                    <a href="/hapusfoto/{{$foto->id}}" class="hover:shadow-lg absolute text-xl font-black right-5 top-2 text-white bg-gray-200 hover:bg-gray-400 rounded-lg px-3">
-                                        <i class="fa-solid fa-xmark"></i>
-                                    </a>
-                                    @endif
-                                    <img src="{{$foto->nama_foto}}" alt="{{ $tempat->nama_tempat }}" class="object-cover w-full">
-                                </div>
+                                    @php $cekfoto=1; @endphp
+                                    <div class="swiper-slide relative">
+                                        @if(Auth::user()->role == 1)
+                                        <a href="/hapusfoto/{{$foto->id}}" class="hover:shadow-lg absolute text-xl font-black right-5 top-2 text-white bg-gray-200 hover:bg-gray-400 rounded-lg px-3">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </a>
+                                        @endif
+                                        <img src="{{$foto->nama_foto}}" alt="{{ $tempat->nama_tempat }}" class="object-cover w-full">
+                                    </div>
                                 @endforeach
+
+                                @if($cekfoto == 0)
+                                <div class="swiper-slide relative">
+                                    <img src="/tempat/not-found.png" alt="kosong" class="object-cover w-full">
+                                </div>
+                                @endif
                             </div>
                             <!-- If we need pagination -->
                             <div class="swiper-pagination"></div>

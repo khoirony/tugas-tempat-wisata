@@ -11,7 +11,7 @@
                 <div class="flex justify-between">
                     <div><a href="{{ url()->previous() }}"><i class="fa-solid fa-angles-left"></i></a></div>
                     <h3 class="text-xl font-bold text-center">Edit User</h3>
-                    <div></div>
+                    <div><button x-on:click="card = ! card" type="button"><i class="fa-solid fa-xmark"></i><button></div>
                 </div>
                 <br><br>
                 <div class="overflow-scroll lg:h-5/6 h-4/6" id="hilanginscroll">
@@ -40,7 +40,15 @@
                         </div>
                         <div class="mb-3">
                             <label for="jk" class="block mb-2 text-sm font-medium text-gray-900">Jenis Kelamin</label>
-                            <input type="text" name="jk" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{$user->jk}}" required>
+                            <select name="jk" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                @if($user->jk == null)
+                                    <option value=" ">--Pilih--</option>
+                                @else
+                                    <option value="{{$user->jk}}">{{$user->jk}}</option>
+                                @endif
+                                <option value="Laki-Laki">Laki-Laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
                             @error('jk') {{ $message }} @enderror
                         </div>
                         <div class="flex mb-3">

@@ -68,6 +68,14 @@ class TempatSeeder extends Seeder
             'id_tempat' => 3,
             'nama_foto' => '/tempat/kebun-binatang-bandung.jpeg',
         ]);
+        FotoTempat::create([
+            'id_tempat' => 3,
+            'nama_foto' => '/tempat/kebun-binatang-bandung2.jpeg',
+        ]);
+        FotoTempat::create([
+            'id_tempat' => 3,
+            'nama_foto' => '/tempat/kebun-binatang-bandung3.jpg',
+        ]);
 
         Tempat::create([
             'nama_tempat' => 'Gedung Sate',

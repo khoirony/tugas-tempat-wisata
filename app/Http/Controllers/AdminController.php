@@ -42,7 +42,8 @@ class AdminController extends Controller
         
         return view('admin.detailtempat',[
             'title' => 'Detail '.$tempat->nama_tempat,
-            'tempat' => $tempat
+            'tempat' => $tempat,
+            'cekfoto' => 0
         ]);
     }
 
