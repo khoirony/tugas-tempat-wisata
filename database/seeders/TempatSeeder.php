@@ -23,8 +23,8 @@ class TempatSeeder extends Seeder
             'longitude' => '107.41843700408937',
             'deskripsi' => ' adalah salah satu tempat wisata paling menarik di Ciwidey! Selain punya area perkemahan yang cantik, Kampung Cai Ranca Upas juga punya  yang menyenangkan untuk dikunjungi. Selain itu juga ada berbagai permainan outbound yang bisa kamu coba di sana bersama keluarga.
             Eh, di sini ada kolam pemandian air panas alaminya juga, lho!',
-            'jam_buka' => '00:00',
-            'jam_tutup' => '24:00',
+            'jam_buka' => '01:00',
+            'jam_tutup' => '23:59',
             'hari_buka' => 'Senin',
             'hari_tutup' => 'Minggu',
             'harga_tiket' => 25000
@@ -93,7 +93,7 @@ class TempatSeeder extends Seeder
             'longitude' => '107.61952757835388',
             'deskripsi' => 'Stadion Siliwangi adalah sebuah stadion yang berada di kota Bandung, Jawa Barat. Stadion ini berada di Jl. Lombok, Bandung. Stadion ini sebelumnya bernama lapangan SPARTA. Hal ini mengacu kepada tim sepak bola militer Hindia Belanda yang ada di Bandung sekitar tahun 1916.',
             'jam_buka' => '01:00',
-            'jam_tutup' => '24:00',
+            'jam_tutup' => '23:59',
             'hari_buka' => 'Senin',
             'hari_tutup' => 'Minggu',
             'harga_tiket' => 0
@@ -110,7 +110,7 @@ class TempatSeeder extends Seeder
             'longitude' => '107.60478615760805',
             'deskripsi' => 'Taman Tegallega rekreasi ini adalah ruang terbuka yang menempati lahan luas di tengah hiruk-pikuk kota. Wisatawan tidak hanya bisa menikmati kesejukan dari pepohonan yang ada. Beragam fasilitas menarik lainnya bisa ditemukan di taman ini, seperti taman lampion dan monumen peringatan bersejarah.',
             'jam_buka' => '01:00',
-            'jam_tutup' => '24:00',
+            'jam_tutup' => '23:59',
             'hari_buka' => 'Senin',
             'hari_tutup' => 'Minggu',
             'harga_tiket' => 2000

@@ -4,20 +4,21 @@
 <div class="relative z-10 top-full">
     <div class="flex flex-nowrap">
         @include('components.sidebar')
-        <div class="absolute flex gap-10 z-50 right-10 top-10">
-            <div class="bg-white shadow-xl rounded-lg px-10 py-7 w-72">
+        
+        <div class="absolute flex gap-5 z-50 left-[260px] top-10 w-[55%]">
+            <div class="bg-white shadow-xl rounded-lg px-5 py-7 w-72">
                 <p class="font-extrabold text-2xl text-red-900">Jumlah Wisata</p>
                 <br>
                 <p class="text-right text-sm font-medium"><span class="font-bold text-3xl text-blue-800">{{ $jmltempat }} </span> Tempat</p>
             </div>
 
-            <div class="bg-white shadow-xl rounded-lg px-10 py-7 w-72">
+            <div class="bg-white shadow-xl rounded-lg px-5 py-7 w-72">
                 <p class="font-extrabold text-2xl text-red-900">Jumlah User</p>
                 <br>
                 <p class="text-right text-sm font-medium"><span class="font-bold text-3xl text-blue-800">{{ $jmluser }} </span> User</p>
             </div>
 
-            <div class="bg-white shadow-xl rounded-lg px-10 py-7 w-72">
+            <div class="bg-white shadow-xl rounded-lg px-5 py-7 w-72">
                 <p class="font-extrabold text-2xl text-red-900">Jml Komentar</p>
                 <br>
                 <p class="text-right text-sm font-medium"><span class="font-bold text-3xl text-blue-800">{{ $jmlkomentar }} </span> Komentar</p>
@@ -31,16 +32,21 @@
 
     <!-- Custom Map -->
     <script>
-        var map = L.map('map').setView([-6.938352857428214,107.60524991427195], 15);
-        
-            L.tileLayer(
-            'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2hvaXJvbnkiLCJhIjoiY2t6c2w1anA5MHFyNjJwbzF3dHRzMmlrbSJ9.CvST75663DLudTug1RmUvg', {
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                maxZoom: 18,
-                id: 'mapbox/streets-v11',
-                tileSize: 512,
-                zoomOffset: -1,
-                accessToken: 'pk.eyJ1Ijoia2hvaXJvbnkiLCJhIjoiY2t6c2w1anA5MHFyNjJwbzF3dHRzMmlrbSJ9.CvST75663DLudTug1RmUvg'
-            }).addTo(map);
+        var map;
+        // init map
+        let lat = '-6.938352857428214';
+        let lng = '107.60524991427195';
+        map = map(lat, lng);
+
+        let markerFoto= [];
+        // looping data untuk marker
+        @foreach ($tempats as $tempat)
+            @foreach ($tempat->fototempat as $foto)
+                markerFoto = '{{$foto->nama_foto}}';
+            @endforeach
+
+            // add marker to map
+            addMarkerAdmin('{{ $tempat->id }}', '{{ $tempat->latitude }}', '{{ $tempat->longitude }}', '{{ $tempat->nama_tempat }}', '{{ $tempat->alamat }}', markerFoto);
+        @endforeach
     </script>
 @endsection

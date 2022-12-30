@@ -14,9 +14,9 @@
         <br><br>
         <div class="overflow-y-auto overscroll-y-none h-5/6" id="hilanginscroll">
             @if(Auth::user()->role == 1)
-            <form method="post" action="/edituser/{{$user->id}}">
+            <form method="post" action="/edituser/{{$user->id}}" enctype="multipart/form-data">
             @else
-            <form method="post" action="/user/editprofile">
+            <form method="post" action="/user/editprofile" enctype="multipart/form-data">
             @endif
                 @csrf
                 <div class="flex justify-center">
@@ -59,6 +59,11 @@
                     <textarea type="text" name="bio" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" rows="4">{{$user->bio}}</textarea>
                     @error('bio') {{ $message }} @enderror
                 </div>
+                <div class="mb-3">
+                    <label for="profpic" class="block mb-2 text-sm font-medium text-gray-900">Foto Profile</label>
+                    <input type="file" name="profpic" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    @error('profpic') {{ $message }} @enderror
+                </div>
                 <div class="text-center">
                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Simpan</button>
                 </div>
@@ -73,31 +78,21 @@
 
     <!-- Custom Map -->
     <script>
-        var map = L.map('map').setView([-6.938352857428214, 107.60524991427195], 12);
+        var map;
+        // init map
+        let lat = '-6.938352857428214';
+        let lng = '107.60524991427195';
+        map = map(lat, lng);
 
-		L.tileLayer(
-			'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2hvaXJvbnkiLCJhIjoiY2t6c2w1anA5MHFyNjJwbzF3dHRzMmlrbSJ9.CvST75663DLudTug1RmUvg', {
-				attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-				maxZoom: 25,
-				id: 'mapbox/streets-v11',
-				tileSize: 512,
-				zoomOffset: -1,
-				accessToken: 'pk.eyJ1Ijoia2hvaXJvbnkiLCJhIjoiY2t6c2w1anA5MHFyNjJwbzF3dHRzMmlrbSJ9.CvST75663DLudTug1RmUvg'
-			}
-		).addTo(map);
-
-        // looping titik tempat
+        let markerFoto= [];
+        // looping data untuk marker
         @foreach ($tempats as $tempat)
-            var marker{{ $tempat->id }} = new L.Marker([{{ $tempat->latitude}}, {{ $tempat->longitude }}]).addTo(map);
-            
-            marker{{ $tempat->id }}.bindPopup('Nama: {{ $tempat->nama_tempat }} <br> Alamat: {{ $tempat->alamat }}');
-        @endforeach
+            @foreach ($tempat->fototempat as $foto)
+                markerFoto = '{{$foto->nama_foto}}';
+            @endforeach
 
-        map.on('click', function(e) {
-            var marker = new L.Marker([e.latlng.lat,e.latlng.lng]);
-            marker.addTo(map);
-            document.getElementById("latitude").value = e.latlng.lat;
-            document.getElementById("longitude").value = e.latlng.lng;
-        });
+            // add marker to map
+            addMarkerAdmin('{{ $tempat->id }}', '{{ $tempat->latitude }}', '{{ $tempat->longitude }}', '{{ $tempat->nama_tempat }}', '{{ $tempat->alamat }}', markerFoto);
+        @endforeach
     </script>
 @endsection

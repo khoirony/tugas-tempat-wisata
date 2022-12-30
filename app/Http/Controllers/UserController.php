@@ -36,6 +36,20 @@ class UserController extends Controller
         ]);
     }
 
+    public function cariTempat(Request $request)
+    {
+        if(isset($request)) {
+            $tempat = Tempat::where('nama_tempat','ilike', "%{$request->input('cari')}%")->get();
+        }else{
+            $tempat = Tempat::all();
+        }
+        
+        return view('admin.caritempat',[
+            'title' => 'Cari Tempat',
+            'tempats' => $tempat
+        ]);
+    }
+
     public function profile()
     {
         $tempats = Tempat::all();
@@ -70,7 +84,21 @@ class UserController extends Controller
             'tanggal_lahir' => 'nullable',
             'alamat' => 'nullable',
             'bio' => 'nullable',
+            'profpic' => 'nullable|image'
         ]);
+
+        if($request->file("profpic") != null){
+            // get input file
+            $file = $request->file("profpic");
+            // hash file name
+            $filename = $file->hashName();
+            // move file to folder profpic
+            $file->move("profpic", $filename);
+            // initiate folder name + filename to path
+            $path = "/profpic/" . $filename;
+
+            $user['profpic'] = $path;
+        }
         User::query()->where('id', Auth::user()->id)->update($user);
 
         return redirect('/user/profile')->with('success', 'Akun berhasil diperbarui!');

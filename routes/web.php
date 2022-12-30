@@ -56,3 +56,5 @@ Route::get('/user/detailtempat/{id}', [UserController::class, 'detailTempat'])->
 Route::get('/user/profile', [UserController::class, 'profile'])->middleware(["withAuthUser"]);
 Route::get('/user/editprofile', [UserController::class, 'editProfile'])->middleware(["withAuthUser"]);
 Route::post('/user/editprofile', [UserController::class, 'updateProfile'])->middleware(["withAuthUser"]);
+Route::get('/user/caritempat', [UserController::class, 'cariTempat'])->middleware(["withAuthUser"]);
+Route::post('/user/caritempat', [UserController::class, 'cariTempat'])->middleware(["withAuthUser"]);

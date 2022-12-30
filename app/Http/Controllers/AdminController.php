@@ -12,6 +12,7 @@ class AdminController extends Controller
 {
     public function index()
     {
+        $tempats = Tempat::all();
         $jmltempats = Tempat::count();
         $jmlusers = User::count();
         $jmlkomentars = Komentar::count();
@@ -20,6 +21,7 @@ class AdminController extends Controller
             'jmltempat' => $jmltempats,
             'jmluser' => $jmlusers,
             'jmlkomentar' => $jmlkomentars,
+            'tempats' => $tempats
         ]);
     }
 
@@ -143,7 +145,7 @@ class AdminController extends Controller
             'jam_buka' => 'nullable',
             'jam_tutup' => 'nullable',
             'harga_tiket' => 'nullable',
-            'foto_tempat' => 'nullable|image'
+            'foto_tempat' => 'nullable'
         ]);
 
 
@@ -163,6 +165,7 @@ class AdminController extends Controller
         if($request->file("foto_tempat") != null){
 
             foreach($request->file("foto_tempat") as $foto){
+                // dd($foto->hashname);
                 $filename = $foto->hashName();
                 // move file to folder tempat
                 $foto->move("tempat", $filename);
@@ -236,7 +239,21 @@ class AdminController extends Controller
             'tanggal_lahir' => 'nullable',
             'alamat' => 'nullable',
             'bio' => 'nullable',
+            'profpic' => 'nullable|image'
         ]);
+
+        if($request->file("profpic") != null){
+            // get input file
+            $file = $request->file("profpic");
+            // hash file name
+            $filename = $file->hashName();
+            // move file to folder profpic
+            $file->move("profpic", $filename);
+            // initiate folder name + filename to path
+            $path = "/profpic/" . $filename;
+
+            $user['profpic'] = $path;
+        }
         User::query()->where('id', $id)->update($user);
 
         return redirect('/detailuser/'.$id)->with('success', 'User berhasil diperbarui!');

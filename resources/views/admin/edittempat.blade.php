@@ -90,27 +90,21 @@
 
     <!-- Custom Map -->
     <script>
-        var map = L.map('map').setView([{{$tempat->latitude}}, {{$tempat->longitude}}], 12);
+        var map;
+        // init map
+        let lat = '-6.938352857428214';
+        let lng = '107.60524991427195';
+        map = map(lat, lng);
 
-		L.tileLayer(
-			'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2hvaXJvbnkiLCJhIjoiY2t6c2w1anA5MHFyNjJwbzF3dHRzMmlrbSJ9.CvST75663DLudTug1RmUvg', {
-				attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-				maxZoom: 25,
-				id: 'mapbox/streets-v11',
-				tileSize: 512,
-				zoomOffset: -1,
-				accessToken: 'pk.eyJ1Ijoia2hvaXJvbnkiLCJhIjoiY2t6c2w1anA5MHFyNjJwbzF3dHRzMmlrbSJ9.CvST75663DLudTug1RmUvg'
-			}
-		).addTo(map);
+        let markerFoto= [];
+        // looping data untuk marker
+        @foreach ($tempats as $tempat)
+            @foreach ($tempat->fototempat as $foto)
+                markerFoto = '{{$foto->nama_foto}}';
+            @endforeach
 
-        var marker{{ $tempat->id }} = new L.Marker([{{ $tempat->latitude}}, {{ $tempat->longitude }}]).addTo(map);
-        marker{{ $tempat->id }}.bindPopup('Nama: {{ $tempat->nama_tempat }} <br> Alamat: {{ $tempat->alamat }}');
-
-        map.on('click', function(e) {
-            var marker = new L.Marker([e.latlng.lat,e.latlng.lng]);
-            marker.addTo(map);
-            document.getElementById("latitude").value = e.latlng.lat;
-            document.getElementById("longitude").value = e.latlng.lng;
-        });
+            // add marker to map
+            addMarkerAdmin('{{ $tempat->id }}', '{{ $tempat->latitude }}', '{{ $tempat->longitude }}', '{{ $tempat->nama_tempat }}', '{{ $tempat->alamat }}', markerFoto);
+        @endforeach
     </script>
 @endsection

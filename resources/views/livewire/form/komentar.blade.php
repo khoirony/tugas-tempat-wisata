@@ -9,11 +9,17 @@
                 <div class="bg-gray-100 flex justify-between px-3 py-1 mb-1 rounded">
                     <p class="mr-5 text-left">
                         @php $waktu =  date("d-m-y H:i", strtotime($komentar->created_at)); @endphp
-                        <span class="text-sm">[{{ $waktu }}]</span> <span class="font-bold">
+                        <span class="text-sm">[{{ $waktu }}]</span> <span class="font-bold @if($komentar->id_user == Auth::user()->id) text-red-600 @endif">
                         {{ $komentar->user->name }} : <br>
                         </span> {{ $komentar->isi_komentar }}
                     </p>
-                    <button type="button" wire:click="delete({{ $komentar->id }})" class="text-red-500"><i class="fa-solid fa-trash-can"></i></button>
+                    @if(Auth::user()->role == 1)
+                        <button type="button" wire:click="delete({{ $komentar->id }})" class="text-red-500"><i class="fa-solid fa-trash-can"></i></button>
+                    @else
+                        @if($komentar->id_user == Auth::user()->id)
+                        <button type="button" wire:click="delete({{ $komentar->id }})" class="text-red-500"><i class="fa-solid fa-trash-can"></i></button>
+                        @endif
+                    @endif
                 </div>
                 @endforeach
             </div>

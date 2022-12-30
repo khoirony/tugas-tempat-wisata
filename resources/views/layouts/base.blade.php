@@ -32,7 +32,8 @@
 
         <!-- CSS Custom -->
         <link rel="stylesheet" href="/css/style.css">
-
+        <script src="/js/map.js"></script>
+        
         <!-- Icon Fontawesome -->
         <script src="https://kit.fontawesome.com/c12c059ff2.js" crossorigin="anonymous"></script>
 
