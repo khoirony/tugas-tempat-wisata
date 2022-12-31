@@ -12,10 +12,14 @@ class AdminController extends Controller
 {
     public function index()
     {
+        // get data tempat untuk marker
         $tempats = Tempat::all();
+
+        // get jumlah
         $jmltempats = Tempat::count();
         $jmlusers = User::count();
         $jmlkomentars = Komentar::count();
+
         return view('admin.dashboard',[
             'title' => 'Dashboard Admin',
             'jmltempat' => $jmltempats,
@@ -28,6 +32,7 @@ class AdminController extends Controller
     // CRUD TEMPAT
     public function listTempat()
     {
+        // get data tempat sort rating terbaik
         $tempats = Tempat::select('tempats.*', Komentar::raw('COALESCE(AVG(komentars.rating), 0) as rating'))
         ->leftjoin('komentars', 'komentars.id_tempat', '=', 'tempats.id')
         ->orderBy('rating', 'desc')
@@ -42,11 +47,11 @@ class AdminController extends Controller
 
     public function detailTempat($id)
     {
+        // get data detail tempat
         $tempat = Tempat::find($id);
-
+        // get data total rating tempat
         $rating = Tempat::join('komentars', 'komentars.id_tempat', '=', 'tempats.id')->where('komentars.id_tempat', $id)->avg('komentars.rating');
 
-        // dd($rating);
         return view('admin.detailtempat',[
             'title' => 'Detail '.$tempat->nama_tempat,
             'tempat' => $tempat,
@@ -57,6 +62,7 @@ class AdminController extends Controller
 
     public function cariTempat(Request $request)
     {
+        // cek request cari, jika ada get data sesuai pencarian
         if(isset($request)) {
             $tempat = Tempat::where('nama_tempat','ilike', "%{$request->input('cari')}%")->get();
         }else{
@@ -71,8 +77,9 @@ class AdminController extends Controller
 
     public function tambahTempat()
     {
+        // get data for marker
         $tempats = Tempat::all();
-        // dd($tempats);
+        
         return view('admin.tambahtempat',[
             'title' => 'Tambah Tempat Wisata',
             'tempats' => $tempats
@@ -81,6 +88,7 @@ class AdminController extends Controller
 
     public function storeTempat(Request $request)
     {
+        // form validation add tempat
         $tempat = $request->validate([
             'latitude' => 'required',
             'longitude' => 'required',
@@ -95,6 +103,7 @@ class AdminController extends Controller
             'foto_tempat' => 'nullable'
         ]);
 
+        // add to table tempat
         Tempat::query()->create([
             'latitude' => $tempat['latitude'],
             'longitude' => $tempat['longitude'],
@@ -108,9 +117,10 @@ class AdminController extends Controller
             'harga_tiket' => $tempat['harga_tiket'],
         ]);
 
+        // cek input file
         if($request->file("foto_tempat") != null){
+            // looping multiple files
             foreach($request->file("foto_tempat") as $foto){
-                // dd($foto->hashname);
                 $filename = $foto->hashName();
                 // move file to folder tempat
                 $foto->move("tempat", $filename);
@@ -132,6 +142,7 @@ class AdminController extends Controller
 
     public function editTempat($id)
     {
+        // get data for marker
         $tempat = Tempat::find($id);
         
         return view('admin.edittempat',[
@@ -142,7 +153,7 @@ class AdminController extends Controller
 
     public function updateTempat(Request $request, $id)
     {
-        // dd($request->file("foto_tempat"));
+        // form Validation edit tempat
         $tempat = $request->validate([
             'latitude' => 'required',
             'longitude' => 'required',
@@ -157,7 +168,7 @@ class AdminController extends Controller
             'foto_tempat' => 'nullable'
         ]);
 
-
+        // insert to table tempat
         Tempat::query()->where('id', $id)->update([
             'latitude' => $tempat['latitude'],
             'longitude' => $tempat['longitude'],
@@ -171,8 +182,9 @@ class AdminController extends Controller
             'harga_tiket' => $tempat['harga_tiket'],
         ]);
 
+        // cek input file
         if($request->file("foto_tempat") != null){
-
+            // looping multiple files
             foreach($request->file("foto_tempat") as $foto){
                 // dd($foto->hashname);
                 $filename = $foto->hashName();
@@ -191,7 +203,6 @@ class AdminController extends Controller
             }
         }
 
-
         return redirect('/detailtempat/'.$id)->with('success', 'Tempat berhasil diperbarui!');
     }
 
@@ -204,7 +215,9 @@ class AdminController extends Controller
     // CRUD USER
     public function listUser()
     {
+        // get data for marker
         $tempats = Tempat::all();
+        // get list user where role 2
         $users = User::where('role', 2)->get();
 
         return view('admin.listuser',[
@@ -216,7 +229,9 @@ class AdminController extends Controller
 
     public function detailUser($id)
     {
+        // get data for marker
         $tempats = Tempat::all();
+        // get detail data user
         $user = user::find($id);
         
         return view('admin.detailuser',[
@@ -228,8 +243,10 @@ class AdminController extends Controller
 
     public function editUser($id)
     {
-        $user = user::find($id);
+        // get data for marker
         $tempats = Tempat::all();
+        // get detail data user
+        $user = user::find($id);
         
         return view('admin.edituser',[
             'title' => 'Edit '. $user->name,
@@ -240,6 +257,7 @@ class AdminController extends Controller
 
     public function updateUser(Request $request, $id)
     {
+        // form validation update user
         $user = $request->validate([
             'name' => 'required',
             'email' => 'required',
@@ -251,6 +269,7 @@ class AdminController extends Controller
             'profpic' => 'nullable|image'
         ]);
 
+        // check file input
         if($request->file("profpic") != null){
             // get input file
             $file = $request->file("profpic");
@@ -263,6 +282,8 @@ class AdminController extends Controller
 
             $user['profpic'] = $path;
         }
+
+        // update table user
         User::query()->where('id', $id)->update($user);
 
         return redirect('/detailuser/'.$id)->with('success', 'User berhasil diperbarui!');

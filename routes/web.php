@@ -29,6 +29,8 @@ Route::get('/logout', [LoginController::class, 'logout']);
 Route::get('/register', [RegisterController::class, 'index'])->middleware(["noAuth"]);
 Route::post('/register', [RegisterController::class, 'store'])->middleware(["noAuth"]);
 
+
+########################################
 // Admin Route
 Route::get('/admin', [AdminController::class, 'index'])->middleware(["withAuthAdmin"]);
 
@@ -39,6 +41,7 @@ Route::post('/tambahtempat', [AdminController::class, 'storeTempat'])->middlewar
 Route::get('/edittempat/{id}', [AdminController::class, 'editTempat'])->middleware(["withAuthAdmin"]);
 Route::post('/edittempat/{id}', [AdminController::class, 'updateTempat'])->middleware(["withAuthAdmin"]);
 Route::get('/hapustempat/{id}', [AdminController::class, 'hapusTempat'])->middleware(["withAuthAdmin"]);
+Route::get('/hapusfoto/{id}', [AdminController::class, 'hapusFoto'])->middleware(["withAuthAdmin"]);
 
 Route::get('/listuser', [AdminController::class, 'listUser'])->middleware(["withAuthAdmin"]);
 Route::get('/detailuser/{id}', [AdminController::class, 'detailUser'])->middleware(["withAuthAdmin"]);
@@ -46,18 +49,21 @@ Route::get('/edituser/{id}', [AdminController::class, 'editUser'])->middleware([
 Route::post('/edituser/{id}', [AdminController::class, 'updateUser'])->middleware(["withAuthAdmin"]);
 Route::get('/hapususer/{id}', [AdminController::class, 'hapusUser'])->middleware(["withAuthAdmin"]);
 
-Route::get('/hapusfoto/{id}', [AdminController::class, 'hapusFoto'])->middleware(["withAuthAdmin"]);
-
 Route::get('/caritempat', [AdminController::class, 'cariTempat'])->middleware(["withAuthAdmin"]);
 Route::post('/caritempat', [AdminController::class, 'cariTempat'])->middleware(["withAuthAdmin"]);
 
+
+########################################
 // User Route
 Route::get('/user', [UserController::class, 'index'])->middleware(["withAuthUser"]);
+
 Route::get('/user/listtempat', [UserController::class, 'listTempat'])->middleware(["withAuthUser"]);
-Route::get('/user/favorite', [UserController::class, 'listFav'])->middleware(["withAuthUser"]);
 Route::get('/user/detailtempat/{id}', [UserController::class, 'detailTempat'])->middleware(["withAuthUser"]);
+Route::get('/user/favorite', [UserController::class, 'listFav'])->middleware(["withAuthUser"]);
+
+Route::get('/user/caritempat', [UserController::class, 'cariTempat'])->middleware(["withAuthUser"]);
+Route::post('/user/caritempat', [UserController::class, 'cariTempat'])->middleware(["withAuthUser"]);
+
 Route::get('/user/profile', [UserController::class, 'profile'])->middleware(["withAuthUser"]);
 Route::get('/user/editprofile', [UserController::class, 'editProfile'])->middleware(["withAuthUser"]);
 Route::post('/user/editprofile', [UserController::class, 'updateProfile'])->middleware(["withAuthUser"]);
-Route::get('/user/caritempat', [UserController::class, 'cariTempat'])->middleware(["withAuthUser"]);
-Route::post('/user/caritempat', [UserController::class, 'cariTempat'])->middleware(["withAuthUser"]);

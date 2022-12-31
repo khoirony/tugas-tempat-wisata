@@ -8,9 +8,9 @@
         @if(session()->has('success'))
         <div class="absolute flex gap-10 z-50 lg:left-[260px] left-5 lg:bottom-20 bottom-40 lg:h-5/6 h-[55%]">
         @else
-        <div class="absolute flex gap-10 z-50 lg:left-[260px] left-5 lg:bottom-20 bottom-40 lg:h-5/6 h-2/6">
+        <div class="absolute flex gap-10 z-50 lg:left-[260px] left-5 lg:bottom-20 bottom-40 lg:h-5/6 h-2/6 w-full">
         @endif
-            <div x-show="card" class="bg-white rounded-lg shadow-xl py-5 px-5 lg:w-96 w-[95%] h-full">
+            <div x-show="card" class="bg-white rounded-lg shadow-xl py-5 px-5 lg:w-96 w-[90%] h-full">
 
                 @if(session()->has('success'))
                     <div x-show="open" id="alert-4" class="flex p-4 mb-4 bg-yellow-100 rounded-lg" role="alert">
