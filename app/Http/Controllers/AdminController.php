@@ -28,8 +28,12 @@ class AdminController extends Controller
     // CRUD TEMPAT
     public function listTempat()
     {
-        $tempats = Tempat::all();
-        
+        $tempats = Tempat::select('tempats.*', Komentar::raw('COALESCE(AVG(komentars.rating), 0) as rating'))
+        ->leftjoin('komentars', 'komentars.id_tempat', '=', 'tempats.id')
+        ->orderBy('rating', 'desc')
+        ->groupBy('tempats.id')
+        ->get();
+
         return view('admin.listtempat',[
             'title' => 'List Tempat Wisata',
             'tempats' => $tempats
@@ -39,11 +43,15 @@ class AdminController extends Controller
     public function detailTempat($id)
     {
         $tempat = Tempat::find($id);
-        
+
+        $rating = Tempat::join('komentars', 'komentars.id_tempat', '=', 'tempats.id')->where('komentars.id_tempat', $id)->avg('komentars.rating');
+
+        // dd($rating);
         return view('admin.detailtempat',[
             'title' => 'Detail '.$tempat->nama_tempat,
             'tempat' => $tempat,
-            'cekfoto' => 0
+            'cekfoto' => 0,
+            'rating' => $rating
         ]);
     }
 

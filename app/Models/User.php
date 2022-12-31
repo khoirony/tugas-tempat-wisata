@@ -18,4 +18,9 @@ class User extends Authenticatable
 	{
 		return $this->HasMany('App\Models\Komentar', 'id_user');
 	}
+
+    public function favorite() 
+	{
+		return $this->HasMany('App\Models\Favorite', 'id_user');
+	}
 }

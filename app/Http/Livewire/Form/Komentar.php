@@ -11,10 +11,12 @@ class Komentar extends Component
     public $id_komentar;
     public $id_tempat;
     public $isi_komentar;
+    public $rating;
     public $showDiv = false;
 
     protected $rules = [
         'isi_komentar' => 'required',
+        'rating' => 'required',
     ];
 
     public function submit()
@@ -22,12 +24,11 @@ class Komentar extends Component
         $this->validate();
  
         // dd($this->komentar, $this->id_tempat);
-        // Execution doesn't reach here if validation fails.
         Komen::create([
             'id_tempat' => $this->id_tempat,
             'isi_komentar' => $this->isi_komentar,
             'id_user' => Auth::user()->id,
-            'rating' => 5
+            'rating' => $this->rating,
         ]);
     }
 

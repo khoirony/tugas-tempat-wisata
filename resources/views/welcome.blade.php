@@ -15,9 +15,10 @@
     <!-- Custom Map -->
     <script>
         // init map
+        var map;
         let lat = '-6.938352857428214';
         let lng = '107.60524991427195';
-        map(lat, lng);
+        map = map(lat, lng);
 
         let markerFoto= [];
         // looping data untuk marker
@@ -29,5 +30,7 @@
             // add marker to map
             addMarker('{{ $tempat->latitude }}', '{{ $tempat->longitude }}', '{{ $tempat->nama_tempat }}', '{{ $tempat->alamat }}', markerFoto);
         @endforeach
+
+        L.streetView({ position: 'bottomleft'}).addTo(map);
     </script>
 @endsection

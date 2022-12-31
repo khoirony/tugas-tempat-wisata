@@ -27,7 +27,7 @@
                 @endif
                 <div class="flex justify-between">
                     <div><button type="button" x-on:click="card = ! card"><i class="fa-solid fa-angles-left"></i></a></div>
-                    <h3 class="text-xl font-bold text-center">List Tempat</h3>
+                    <h3 class="text-xl font-bold text-center">List Tempat Favorite</h3>
                     <div><button x-on:click="card = ! card" type="button"><i class="fa-solid fa-xmark"></i><button></div>
                 </div>
                 <br><br>
@@ -38,36 +38,38 @@
                 <div class="overflow-scroll lg:h-5/6 h-4/6" id="hilanginscroll">
                 @endif
                     @foreach($tempats as $tempat)
-                    <div class="shadow-lg flex justify-between bg-red-300 pl-5 pr-2 py-2 rounded mb-5 w-full">
-                        <div>
-                            @if(Auth::user()->role == 1)
-                            <a href="/detailtempat/{{ $tempat->id }}" class="w-full py-1">{{ $tempat->nama_tempat }}</a>
-                            @else
-                            <a href="/user/detailtempat/{{ $tempat->id }}" class="w-full py-1">{{ $tempat->nama_tempat }}</a>
-                            @endif
-                            <br>
-                            <!-- Rating -->
-                            @if($tempat->rating == null)
-                                <span class="text-gray-700 text-xs mt-3">-belum ada rating-</span>
-                            @else
-                            <div x-data="{ 
-                                ratingtotal: [1,2,3,4,5],
-                                total: 5,
-                                rating: {{$tempat->rating}}
-                            }">
-                                <div class="flex flex-row">
-                                    <template x-for="star in ratingtotal">
-                                        <span x-bind:class="star <= rating ? 'text-yellow-500' : 'text-gray-500'" class="text-sm">
-                                            <i x-bind:class="star <= rating ? 'fa-solid fa-star' : 'fa-regular fa-star'"></i>
-                                        </span>
-                                    </template>
-                                </div>
-                            </div>
-                            @endif
+                    <div class="shadow-lg flex justify-start items-center bg-red-300 pl-0 pr-2 py-2 rounded mb-5 w-full">
+                        <div class="px-3 text-2xl">
+                            @livewire('button.fav', ['id_tempat' => $tempat->id ])
                         </div>
-                        <button type="button" class="text-black bg-white px-4 py-1 rounded" onclick="getlokasi('{{ $tempat->longitude }}', '{{ $tempat->latitude }}');">
-                            Rute
-                        </button>
+                        <div class="flex justify-between w-full">
+                            <div>
+                                @if(Auth::user()->role == 1)
+                                <a href="/detailtempat/{{ $tempat->id }}" class="w-full py-1">{{ $tempat->nama_tempat }}
+                                @else
+                                <a href="/user/detailtempat/{{ $tempat->id }}" class="w-full py-1">{{ $tempat->nama_tempat }}
+                                @endif
+                                <br>
+                                <!-- Rating -->
+                                    <div x-data="{ 
+                                        ratingtotal: [1,2,3,4,5],
+                                        total: 5,
+                                        rating: {{$tempat->rating}}
+                                    }">
+                                        <div class="flex flex-row">
+                                            <template x-for="star in ratingtotal">
+                                                <span x-bind:class="star <= rating ? 'text-yellow-500' : 'text-gray-500'" class="text-sm">
+                                                    <i x-bind:class="star <= rating ? 'fa-solid fa-star' : 'fa-regular fa-star'"></i>
+                                                </span>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <button type="button" class="text-black bg-white px-4 py-1 rounded" onclick="getlokasi('{{ $tempat->longitude }}', '{{ $tempat->latitude }}');">
+                                Rute
+                            </button>
+                        </div>
                     </div>
                     @endforeach
                 </div>

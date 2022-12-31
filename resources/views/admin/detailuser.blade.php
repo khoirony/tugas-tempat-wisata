@@ -31,7 +31,7 @@
             </div>
             <br><br>
             @if(session()->has('success'))
-            <div class="overflow-scroll" id="hilanginscroll">
+            <div class="overflow-scroll lg:h-5/6 h-[55%]" id="hilanginscroll">
             @else
             <div class="overflow-scroll lg:h-5/6 h-4/6" id="hilanginscroll">
             @endif

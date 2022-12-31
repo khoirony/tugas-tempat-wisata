@@ -26,7 +26,34 @@
                     <h3 class="text-xl font-bold text-center">{{ $tempat->nama_tempat }}</h3>
                     <div><button x-on:click="card = ! card" type="button"><i class="fa-solid fa-xmark"></i><button></div>
                 </div>
-                <br><br>
+                @if($rating == null)
+                <div x-data="{ total: [1,2,3,4,5] }" class="flex flex-row justify-between px-3">
+                    <div class="px-3"></div>
+                    <div>
+                        <span class="text-gray-700 text-xs mt-5">-belum ada rating-</span>
+                    </div>
+                    @livewire('button.fav', ['id_tempat' => $tempat->id ])
+                </div>
+                @else
+                <div x-data="{ 
+                    ratingtotal: [1,2,3,4,5],
+                    total: 5,
+                    rating: {{$rating}}
+                }">
+                    <div class="flex flex-row justify-between mt-3 px-3">
+                        <div class="px-3"></div>
+                        <div>
+                            <template x-for="star in ratingtotal">
+                                <span x-bind:class="star <= rating ? 'text-yellow-500' : 'text-gray-500'" class="text-sm">
+                                    <i x-bind:class="star <= rating ? 'fa-solid fa-star' : 'fa-regular fa-star'"></i>
+                                </span>
+                            </template>
+                        </div>
+                        @livewire('button.fav', ['id_tempat' => $tempat->id ])
+                    </div>
+                </div>
+                @endif
+                <br>
                 @if(session()->has('success'))
                 <div x-bind:class="open ? 'h-[70%]' : 'h-5/6'" class="overflow-scroll" id="hilanginscroll">
                 @else
@@ -67,6 +94,7 @@
                         
                         <br><br>
                         {{ $tempat->deskripsi }} <br><br>
+                        
                         <p><span class="font-bold">Alamat:</span> {{ $tempat->alamat }}</p>
                         <p><span class="font-bold">Jam Buka:</span> {{ $tempat->jam_buka }} - {{ $tempat->jam_tutup }}</p> 
                         <p><span class="font-bold">Hari Buka:</span> {{ $tempat->hari_buka }} - {{ $tempat->hari_tutup }}</p>

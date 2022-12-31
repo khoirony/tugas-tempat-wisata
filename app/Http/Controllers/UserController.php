@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Tempat;
 use App\Models\User;
+use App\Models\Komentar;
+use App\Models\Favorite;
 use Auth;
 
 class UserController extends Controller
@@ -20,7 +22,11 @@ class UserController extends Controller
 
     public function listTempat()
     {
-        $tempats = Tempat::all();
+        $tempats = Tempat::select('tempats.*', Komentar::raw('COALESCE(AVG(komentars.rating), 0) as rating'))
+        ->leftjoin('komentars', 'komentars.id_tempat', '=', 'tempats.id')
+        ->orderBy('rating', 'desc')
+        ->groupBy('tempats.id')
+        ->get();
         
         return view('admin.listtempat',[
             'title' => 'List Tempat Wisata',
@@ -28,13 +34,33 @@ class UserController extends Controller
         ]);
     }
 
+    public function listFav()
+    {
+        $favorites = Tempat::select('tempats.*', Komentar::raw('COALESCE(AVG(komentars.rating), 0) as rating'),'favorites.status')
+        ->leftjoin('favorites', 'favorites.id_tempat', '=', 'tempats.id')
+        ->leftjoin('komentars', 'komentars.id_tempat', '=', 'tempats.id')
+        ->orderBy('rating', 'desc')
+        ->groupBy('tempats.id')
+        ->groupBy('favorites.id')
+        ->where('favorites.id_user', Auth::user()->id)
+        ->get();
+        
+        return view('admin.listfavorite',[
+            'title' => 'List Tempat Wisata',
+            'tempats' => $favorites
+        ]);
+    }
+
     public function detailTempat($id)
     {
         $tempat = Tempat::find($id);
+        $rating = Tempat::join('komentars', 'komentars.id_tempat', '=', 'tempats.id')->where('komentars.id_tempat', $id)->avg('komentars.rating');
         
         return view('admin.detailtempat',[
             'title' => 'Detail '.$tempat->nama_tempat,
-            'tempat' => $tempat
+            'tempat' => $tempat,
+            'cekfoto' => 0,
+            'rating' => $rating
         ]);
     }
 

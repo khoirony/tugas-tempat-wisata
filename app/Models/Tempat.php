@@ -15,6 +15,11 @@ class Tempat extends Model
 		return $this->hasMany('App\Models\Komentar', 'id_tempat');
 	}
 
+	public function favorite() 
+	{
+		return $this->hasMany('App\Models\Favorite', 'id_tempat');
+	}
+
     public function fototempat() 
 	{
 		return $this->hasMany('App\Models\FotoTempat', 'id_tempat');

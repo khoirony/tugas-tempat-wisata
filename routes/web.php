@@ -54,6 +54,7 @@ Route::post('/caritempat', [AdminController::class, 'cariTempat'])->middleware([
 // User Route
 Route::get('/user', [UserController::class, 'index'])->middleware(["withAuthUser"]);
 Route::get('/user/listtempat', [UserController::class, 'listTempat'])->middleware(["withAuthUser"]);
+Route::get('/user/favorite', [UserController::class, 'listFav'])->middleware(["withAuthUser"]);
 Route::get('/user/detailtempat/{id}', [UserController::class, 'detailTempat'])->middleware(["withAuthUser"]);
 Route::get('/user/profile', [UserController::class, 'profile'])->middleware(["withAuthUser"]);
 Route::get('/user/editprofile', [UserController::class, 'editProfile'])->middleware(["withAuthUser"]);
