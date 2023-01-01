@@ -3,17 +3,22 @@
 @section('content')
 <div x-data="{ card: true }" class="relative z-10 top-full">
     <div class="flex flex-nowrap lg:flex-col flex-row">
+        <!-- sidebar -->
         @include('components.sidebar')
 
-        <!-- Form Edit Tempat -->
+        <!-- angkat layer diatas map -->
         <div class="absolute flex gap-10 z-50 lg:left-[260px] left-5 lg:bottom-20 bottom-40 lg:h-5/6 h-2/6">
             <div x-show="card" class="bg-white rounded-lg shadow-xl py-5 px-5 lg:w-96 w-[95%] h-full">
+                
+                <!-- title component -->
                 <div class="flex justify-between">
                     <div><a href="{{ url()->previous() }}"><i class="fa-solid fa-angles-left"></i></a></div>
                     <h3 class="text-xl font-bold text-center">Edit User</h3>
                     <div><button x-on:click="card = ! card" type="button"><i class="fa-solid fa-xmark"></i><button></div>
                 </div>
                 <br><br>
+
+                <!-- overflow form edit user -->
                 <div class="overflow-scroll lg:h-5/6 h-4/6" id="hilanginscroll">
                     @if(Auth::user()->role == 1)
                     <form method="post" action="/edituser/{{$user->id}}" enctype="multipart/form-data">
@@ -30,7 +35,7 @@
                         </div><br>
                         <div class="mb-3">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nama Lengkap</label>
-                            <input type="text" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{$user->name}}" required>
+                            <input type="text" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{$user->name}}" >
                             @error('name') {{ $message }} @enderror
                         </div>
                         <div class="mb-3">

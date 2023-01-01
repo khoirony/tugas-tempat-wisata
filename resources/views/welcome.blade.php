@@ -31,6 +31,7 @@
             addMarker('{{ $tempat->latitude }}', '{{ $tempat->longitude }}', '{{ $tempat->nama_tempat }}', '{{ $tempat->alamat }}', markerFoto);
         @endforeach
 
+        // coba streetview
         L.streetView({ position: 'bottomleft'}).addTo(map);
     </script>
 @endsection

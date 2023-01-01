@@ -3,11 +3,14 @@
 @section('content')
 <div x-data="{ open: true, card: true }" class="relative z-10 top-full">
     <div class="flex flex-nowrap lg:flex-col flex-row">
+        <!-- sidebar -->
         @include('components.sidebar')
 
-        <!-- Konten -->
+        <!-- angkat layer keatas map -->
         <div class="absolute flex gap-10 z-50 lg:left-[260px] left-5 lg:bottom-20 bottom-40 lg:h-5/6 h-4/6">
             <div x-show="card" class="bg-white rounded-lg shadow-xl py-5 px-5 lg:w-96 w-[95%] h-full">
+
+                <!-- notif sukses -->
                 @if(session()->has('success'))
                     <div x-show="open" id="alert-4" class="flex p-4 mb-4 bg-yellow-100 rounded-lg" role="alert">
                         <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5 text-yellow-700" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
@@ -21,11 +24,15 @@
                         </button>
                     </div>
                 @endif
+
+                <!-- title component -->
                 <div class="flex justify-between">
                     <div><a href="{{ url()->previous() }}"><i class="fa-solid fa-angles-left"></i></a></div>
                     <h3 class="text-xl font-bold text-center">{{ $tempat->nama_tempat }}</h3>
                     <div><button x-on:click="card = ! card" type="button"><i class="fa-solid fa-xmark"></i><button></div>
                 </div>
+
+                <!-- rating dan tombol favorite -->
                 @if($rating == null)
                 <div x-data="{ total: [1,2,3,4,5] }" class="flex flex-row justify-between px-3">
                     <div class="px-3"></div>
@@ -54,6 +61,8 @@
                 </div>
                 @endif
                 <br>
+
+                <!-- overflow detail tempat dan responsive jika ada notif -->
                 @if(session()->has('success'))
                 <div x-bind:class="open ? 'h-[70%]' : 'h-5/6'" class="overflow-scroll" id="hilanginscroll">
                 @else
@@ -61,7 +70,7 @@
                 @endif
                     <div class="text-justify h-full">
                         
-                        <!-- Slider main container -->
+                        <!-- Swiper JS buat carousel -->
                         <div class="swiper lg:h-[200px] h-[150px] lg:w-auto w-72">
                             <!-- Additional required wrapper -->
                             <div class="swiper-wrapper">
@@ -91,10 +100,10 @@
                             <div class="swiper-button-prev"></div>
                             <div class="swiper-button-next"></div>
                         </div>
+                        <!-- end of Swiper JS -->
                         
                         <br><br>
                         {{ $tempat->deskripsi }} <br><br>
-                        
                         <p><span class="font-bold">Alamat:</span> {{ $tempat->alamat }}</p>
                         <p><span class="font-bold">Jam Buka:</span> {{ $tempat->jam_buka }} - {{ $tempat->jam_tutup }}</p> 
                         <p><span class="font-bold">Hari Buka:</span> {{ $tempat->hari_buka }} - {{ $tempat->hari_tutup }}</p>

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\TempatRequest;
+use App\Http\Requests\UpdateUserRequest;
+
 use App\Models\Tempat;
 use App\Models\FotoTempat;
 use App\Models\User;
@@ -86,36 +89,11 @@ class AdminController extends Controller
         ]);
     }
 
-    public function storeTempat(Request $request)
+    public function storeTempat(TempatRequest $request)
     {
-        // form validation add tempat
-        $tempat = $request->validate([
-            'latitude' => 'required',
-            'longitude' => 'required',
-            'nama_tempat' => 'required',
-            'alamat' => 'required',
-            'deskripsi' => 'nullable',
-            'hari_buka' => 'nullable',
-            'hari_tutup' => 'nullable',
-            'jam_buka' => 'nullable',
-            'jam_tutup' => 'nullable',
-            'harga_tiket' => 'nullable',
-            'foto_tempat' => 'nullable'
-        ]);
-
-        // add to table tempat
-        Tempat::query()->create([
-            'latitude' => $tempat['latitude'],
-            'longitude' => $tempat['longitude'],
-            'nama_tempat' => $tempat['nama_tempat'],
-            'alamat' => $tempat['alamat'],
-            'deskripsi' => $tempat['deskripsi'],
-            'hari_buka' => $tempat['hari_buka'],
-            'hari_tutup' => $tempat['hari_tutup'],
-            'jam_buka' => $tempat['jam_buka'],
-            'jam_tutup' => $tempat['jam_tutup'],
-            'harga_tiket' => $tempat['harga_tiket'],
-        ]);
+        // insert request to tabel tempat (kecuali foto_tempat)
+        $tempat = $request->except('foto_tempat');
+        Tempat::query()->create($tempat);
 
         // cek input file
         if($request->file("foto_tempat") != null){
@@ -151,36 +129,11 @@ class AdminController extends Controller
         ]);
     }
 
-    public function updateTempat(Request $request, $id)
+    public function updateTempat(TempatRequest $request, $id)
     {
-        // form Validation edit tempat
-        $tempat = $request->validate([
-            'latitude' => 'required',
-            'longitude' => 'required',
-            'nama_tempat' => 'required',
-            'alamat' => 'required',
-            'deskripsi' => 'nullable',
-            'hari_buka' => 'nullable',
-            'hari_tutup' => 'nullable',
-            'jam_buka' => 'nullable',
-            'jam_tutup' => 'nullable',
-            'harga_tiket' => 'nullable',
-            'foto_tempat' => 'nullable'
-        ]);
-
-        // insert to table tempat
-        Tempat::query()->where('id', $id)->update([
-            'latitude' => $tempat['latitude'],
-            'longitude' => $tempat['longitude'],
-            'nama_tempat' => $tempat['nama_tempat'],
-            'alamat' => $tempat['alamat'],
-            'deskripsi' => $tempat['deskripsi'],
-            'hari_buka' => $tempat['hari_buka'],
-            'hari_tutup' => $tempat['hari_tutup'],
-            'jam_buka' => $tempat['jam_buka'],
-            'jam_tutup' => $tempat['jam_tutup'],
-            'harga_tiket' => $tempat['harga_tiket'],
-        ]);
+        // insert request to update tabel tempat (kecuali foto_tempat)
+        $tempat = $request->except('foto_tempat', '_token');
+        Tempat::query()->where('id', $id)->update($tempat);
 
         // cek input file
         if($request->file("foto_tempat") != null){
@@ -255,19 +208,10 @@ class AdminController extends Controller
         ]);
     }
 
-    public function updateUser(Request $request, $id)
+    public function updateUser(UpdateUserRequest $request, $id)
     {
         // form validation update user
-        $user = $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'jk' => 'required',
-            'tempat_lahir' => 'nullable',
-            'tanggal_lahir' => 'nullable',
-            'alamat' => 'nullable',
-            'bio' => 'nullable',
-            'profpic' => 'nullable|image'
-        ]);
+        $user = $request->except('_token');
 
         // check file input
         if($request->file("profpic") != null){

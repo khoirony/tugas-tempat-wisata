@@ -3,8 +3,13 @@
 @section('body')
 
     <div class="relative z-10 top-full">
+        <!-- Navbar -->
         @include('components.navbar')
+
+        <!-- Angkat Component ke layer atas map -->
         <div class="absolute z-50 lg:left-[35%] left-3 lg:top-0 top-28 flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            
+            <!-- Card Register -->
             <div class="w-full bg-white rounded-lg shadow-lg md:mt-0 sm:max-w-md xl:p-0">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
@@ -54,6 +59,7 @@
                     </form>
                 </div>
             </div>
+            <!-- End of Card -->
         </div>
         <!-- Map -->
         <div id="map" class="z-10" style="height:100vh;"></div>

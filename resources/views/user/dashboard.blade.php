@@ -3,11 +3,16 @@
 @section('content')
 <div class="relative z-10 top-full">
     <div class="flex flex-nowrap">
+        <!-- sidebar -->
         @include('components.sidebar')
+
+
         <div class="absolute flex gap-10 z-50 right-10 top-10">
             <!-- Content -->
         </div>
     </div>
+
+    
     <!-- Map -->
     <div id="map" class="z-10" style="height:100vh;"></div>
 </div>

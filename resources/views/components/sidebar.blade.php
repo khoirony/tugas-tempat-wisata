@@ -1,4 +1,5 @@
     @if(Auth::user()->role == 1)
+    <!-- Sidebar Admin -->
     <div class="bg-white shadow-xl flex flex-col justify-between rounded-lg py-7 px-5 absolute lg:bottom-20 bottom-10 left-4 lg:w-2/12 w-11/12 lg:h-5/6 h-1/12 z-50">
         <div class="flex lg:flex-col flex-row lg:justify-center justify-between lg:gap-5 gap-2">
             <h1 class="font-bold text-xl text-center text-gray-700 lg:block hidden mb-10">Admin</h1>
@@ -34,7 +35,9 @@
         </div>
         <a href="/logout" class="font-bold text-center lg:block hidden">Logout</a>
     </div>
+    <!-- End of Sidebar Admin -->
     @else
+    <!-- Sidebar User -->
     <div class="bg-white shadow-xl flex flex-col justify-between rounded-lg py-7 px-7 absolute lg:bottom-20 bottom-10 left-4 lg:w-2/12 w-11/12 lg:h-5/6 h-1/12 z-50">
         <div class="overflow-x-scroll flex lg:flex-col flex-row lg:justify-center justify-between lg:gap-5 gap-2">
             <h1 class="font-bold text-xl text-center text-gray-700 lg:block hidden mb-10">{{Auth::user()->name}}</h1> 
@@ -70,4 +73,5 @@
         </div>
         <a href="/logout" class="font-bold text-center lg:block hidden">Logout</a>
     </div>
+    <!-- End of sidebar user -->
     @endif

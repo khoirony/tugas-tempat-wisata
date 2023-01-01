@@ -3,21 +3,27 @@
 @section('content')
 <div class="relative z-10 top-full">
     <div class="flex flex-nowrap">
+        <!-- sidebar -->
         @include('components.sidebar')
         
+        <!-- angkat layer keatas map -->
         <div class="absolute flex lg:flex-row flex-col gap-5 z-50 lg:left-[260px] left-5 top-10 lg:w-[55%] w-[90%]">
+            
+            <!-- card jumlah tempat -->
             <div class="bg-white shadow-xl rounded-lg px-5 py-7 lg:w-72 w-full">
                 <p class="font-extrabold text-2xl text-red-900">Jumlah Wisata</p>
                 <br>
                 <p class="text-right text-sm font-medium"><span class="font-bold text-3xl text-blue-800">{{ $jmltempat }} </span> Tempat</p>
             </div>
 
+            <!-- card jumlah user -->
             <div class="bg-white shadow-xl rounded-lg px-5 py-7 lg:w-72 w-full">
                 <p class="font-extrabold text-2xl text-red-900">Jumlah User</p>
                 <br>
                 <p class="text-right text-sm font-medium"><span class="font-bold text-3xl text-blue-800">{{ $jmluser }} </span> User</p>
             </div>
 
+            <!-- card jumlah komentar -->
             <div class="bg-white shadow-xl rounded-lg px-5 py-7 lg:w-72 w-full">
                 <p class="font-extrabold text-2xl text-red-900">Jml Komentar</p>
                 <br>
@@ -25,6 +31,7 @@
             </div>
         </div>
     </div>
+    
     <!-- Map -->
     <div id="map" class="z-10" style="height:100vh;"></div>
 </div>

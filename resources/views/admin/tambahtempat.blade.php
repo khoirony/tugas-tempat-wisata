@@ -5,15 +5,19 @@
     <div class="flex flex-nowrap lg:flex-col flex-row">
         @include('components.sidebar')
 
-        <!-- Form Tambah Tempat -->
+        <!-- angkat layer komponen keatas map -->
         <div class="absolute flex gap-10 z-50 lg:left-[260px] left-5 lg:bottom-20 bottom-40 lg:h-5/6 h-2/6">
             <div x-show="card" class="bg-white rounded-lg shadow-xl py-5 px-5 lg:w-96 w-[95%] h-full">
+                
+                <!-- Title Component -->
                 <div class="flex justify-between">
                     <div><button type="button" x-on:click="card = ! card"><i class="fa-solid fa-angles-left"></i></a></div>
                     <h3 class="text-xl font-bold text-center">Tambah Tempat</h3>
                     <div><button x-on:click="card = ! card" type="button"><i class="fa-solid fa-xmark"></i><button></div>
                 </div>
                 <br><br>
+                
+                <!-- overflow form komentar -->
                 <div class="overflow-scroll lg:h-5/6 h-4/6" id="hilanginscroll">
                     <form method="post" action="/tambahtempat" enctype="multipart/form-data">
                         @csrf

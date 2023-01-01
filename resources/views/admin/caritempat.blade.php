@@ -3,12 +3,18 @@
 @section('content')
 <div class="relative z-10 top-full">
     <div class="flex flex-nowrap">
+        <!-- sidebar -->
         @include('components.sidebar')
+
+        <!-- angkat layer diatas map -->
         <div class="absolute flex gap-10 z-50 lg:left-72 left-5 top-10">
-            <!-- Content -->
+
+            <!-- card cari tempat -->
             <div class="shadow-xl bg-white rounded-lg lg:w-96 w-[95%] px-10 py-5">
+                <!-- title component -->
                 <h3 class="font-bold text-xl text-center">Cari Tempat</h3><br>
                     
+                <!-- form cari -->
                 <form action="" method="post">
                     @csrf
                     <div class="mb-3">
@@ -21,6 +27,7 @@
             </div>
         </div>
     </div>
+    
     <!-- Map -->
     <div id="map" class="z-10" style="height:100vh;"></div>
 </div>

@@ -3,8 +3,10 @@
 @section('content')
 <div x-data="{ card: true, open:true }" class="relative z-10 top-full">
     <div class="flex flex-nowrap lg:flex-col flex-row">
+        <!-- sidebar -->
         @include('components.sidebar')
         
+        <!-- responsive jika ada notif -->
         @if(session()->has('success'))
         <div class="absolute flex gap-10 z-50 lg:left-[260px] left-5 lg:bottom-20 bottom-40 lg:h-5/6 h-[55%]">
         @else
@@ -12,6 +14,7 @@
         @endif
             <div x-show="card" class="bg-white rounded-lg shadow-xl py-5 px-5 lg:w-96 w-[90%] h-full">
 
+                <!-- Notif sukses -->
                 @if(session()->has('success'))
                     <div x-show="open" id="alert-4" class="flex p-4 mb-4 bg-yellow-100 rounded-lg" role="alert">
                         <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5 text-yellow-700" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
@@ -25,6 +28,8 @@
                         </button>
                     </div>
                 @endif
+
+                <!-- Title Component -->
                 <div class="flex justify-between">
                     <div><button type="button" x-on:click="card = ! card"><i class="fa-solid fa-angles-left"></i></a></div>
                     <h3 class="text-xl font-bold text-center">List Tempat Favorite</h3>
@@ -32,11 +37,14 @@
                 </div>
                 <br><br>
                 
+                <!-- overflow list tempat responsive jika ada notif -->
                 @if(session()->has('success'))
                 <div x-bind:class="open ? 'h-[70%]' : 'h-5/6'" class="overflow-scroll h-[70%]" id="hilanginscroll">
                 @else
                 <div class="overflow-scroll lg:h-5/6 h-4/6" id="hilanginscroll">
                 @endif
+                
+                    <!-- looping data tempat favorite -->
                     @foreach($tempats as $tempat)
                     <div class="shadow-lg flex justify-start items-center bg-red-300 pl-0 pr-2 py-2 rounded mb-5 w-full">
                         <div class="px-3 text-2xl">
